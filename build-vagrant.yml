@@ -1,0 +1,40 @@
+---
+
+- name: Setup OwnCloud
+  hosts: default
+  become_user: root
+  become: yes
+  tasks:
+    - name: Install EPEL
+      yum:
+        name="epel-release"
+        state="installed"
+    - name: Install utilities
+      yum:
+        name={{item}}
+        state="present"
+      with_items:
+        - vim
+        - mlocate
+        - man
+        - tree
+        - htop
+        - subscription-manager
+        - git
+        - zip
+        - unzip
+    - name: installed LAMP stack bits
+      yum:
+        name={{item}}
+        state="present"
+      with_items:
+        - httpd
+        - mariadb
+        - mariadb-server
+        - php
+        - php-gd
+        - php-intl
+        - php-mbstring
+        - php-process
+        - php-xml
+    
